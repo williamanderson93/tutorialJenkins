@@ -16,5 +16,15 @@ pipeline {
                sh 'sudo apt install apache2 -y'
             }
         }
+        stage('Edit File Permissions'){
+            steps {
+                sh 'sudo chown jenkins /var/www/html/index.html'
+            }
+        }
+        stage('Edit File'){
+            steps {
+                sh 'echo "<h1>Hello from $(curl ifconfig.me)</h1>" > /var/www/html/index.html'
+            }
+        }
     }
 }
