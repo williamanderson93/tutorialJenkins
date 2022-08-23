@@ -8,12 +8,12 @@ pipeline {
     stages {
         stage('Update Apt Cache') {
             steps {
-                sudo apt update
+                sh 'sudo apt update'
             }
         }
         stage('Install Apache') {
             steps {
-                sudo apt install apache2 -y
+               sh 'sudo apt install apache2 -y'
             }
         }
     }
