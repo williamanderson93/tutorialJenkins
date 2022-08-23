@@ -16,6 +16,11 @@ pipeline {
         //         sh 'sudo pytest /home/jenkins/.jenkins/workspace/FlaskApp/'
         //     }
         // }
+        stage('Pre') {
+            steps {
+                sh 'sudo apt update'
+            }
+        }
         stage('Building') {
             steps {
                 sh '''
