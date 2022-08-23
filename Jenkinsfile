@@ -4,26 +4,34 @@ pipeline {
         booleanParam(name: 'Refresh',
                     defaultValue: false,
                     description: 'Read Jenkinsfile and exit.')
-                    }
+		    }
     stages {
-        stage('Update Apt Cache') {
+        // stage('Pre') { hello from Jenkins!
+        //     steps {
+        //         sh 'ansible-playbook -v -i /home/jenkins/.jenkins/workspace/FlaskApp/inventory.yaml /home/jenkins/.jenkins/workspace/FlaskApp/playbook.yaml'
+        //     }
+        // }
+        // stage('Test') { 
+        //     steps {
+        //         sh 'sudo pytest /home/jenkins/.jenkins/workspace/FlaskApp/'
+        //     }
+        // }
+        stage('Building') {
             steps {
-                sh 'sudo apt update'
+                sh '''
+                    sudo docker system prune -a -f
+                    sudo docker-compose build
+                '''
             }
         }
-        stage('Install Apache') {
+        stage('Deploying') {
             steps {
-               sh 'sudo apt install apache2 -y'
-            }
-        }
-        stage('Edit File Permissions'){
-            steps {
-                sh 'sudo chown jenkins /var/www/html/index.html'
-            }
-        }
-        stage('Edit File'){
-            steps {
-                sh 'echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html'
+                sh '''
+                    ssh -i /home/jenkins/.ssh/Estio-Training-NForester -o StrictHostKeyChecking=no jenkins@10.0.1.10
+                    sudo docker-compose -f /home/ubuntu/APIPrimeAge/docker-compose.yaml down
+                    sudo docker system prune -a -f                  
+                    sudo docker-compose -f /home/ubuntu/APIPrimeAge/docker-compose.yaml build
+                '''
             }
         }
     }
