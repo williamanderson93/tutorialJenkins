@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Edit File'){
             steps {
-                sh 'echo "<h1>Hello from $(curl ifconfig.me)</h1>" > /var/www/html/index.html'
+                sh 'echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html'
             }
         }
     }
