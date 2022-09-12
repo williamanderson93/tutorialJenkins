@@ -23,6 +23,14 @@ pipeline {
                       sudo docker-compose build
                    '''
             }
+            }
+        stage(' Unit Tests') {
+            steps {
+                sh '''
+                      pytest ./converter/tests/test_unit.py
+                   '''
+            }
+        }
         }
         // stage('Deploying') {
         //     steps {
