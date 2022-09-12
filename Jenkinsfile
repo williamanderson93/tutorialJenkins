@@ -27,7 +27,7 @@ pipeline {
         stage(' Unit Tests') {
             steps {
                 sh '''
-                      pytest ./converter/tests/test_unit.py
+                      python3 -m pytest ./converter/tests/test_unit.py
                    '''
             }
         }
