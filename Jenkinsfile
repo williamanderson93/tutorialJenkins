@@ -16,21 +16,24 @@ pipeline {
         //         sh 'sudo pytest /home/jenkins/.jenkins/workspace/FlaskApp/'
         //     }
         // }
-        stage('Building') {
+        stage('Clean Up') {
             steps {
                 sh '''
                       sudo docker system prune -a -f
-                      sudo docker-compose build
                    '''
             }
             }
-        stage(' Unit Tests') {
+        stage('Unit Tests') {
             steps {
                 sh '''
-                      pytest ./converter/tests/test_unit.py
+                      python3 -m pytest ./converter/tests/test_unit.py
                    '''
             }
         }
+        stage('Build') {
+            steps {
+                sh 'docker-compose build'
+            }
         }
         // stage('Deploying') {
         //     steps {
@@ -43,3 +46,4 @@ pipeline {
         //     }
         // }
     }
+}
