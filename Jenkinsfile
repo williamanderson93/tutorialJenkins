@@ -27,7 +27,7 @@ pipeline {
         stage(' Unit Tests') {
             steps {
                 sh '''
-                      pytest ./converter/tests/test_unit.py
+                      /home/jenkins/.local/bin/pytest converter/
                    '''
             }
         }
