@@ -23,6 +23,13 @@ pipeline {
                    '''
             }
             }
+        stage('Integration Test') {
+            steps {
+                sh '''
+                      python3 -m pytest ./main/tests/unit_test.py/test_unit.py
+                   '''
+            }
+        }
         stage('Unit Tests') {
             steps {
                 sh '''
