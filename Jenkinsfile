@@ -16,17 +16,10 @@ pipeline {
         //         sh 'sudo pytest /home/jenkins/.jenkins/workspace/FlaskApp/'
         //     }
         // }
-        stage('Pre') {
-            steps {
-                sh 'sudo apt update'
-            }
-        }
+        stage
         stage('Building') {
             steps {
-                sh '''
-                    sudo docker system prune -a -f
-                    sudo docker-compose build
-                '''
+                sh 'sudo docker-compose build'
             }
         }
         // stage('Deploying') {
