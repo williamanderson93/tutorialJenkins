@@ -18,7 +18,10 @@ pipeline {
         // }
         stage('Building') {
             steps {
-                sh 'sudo docker-compose build'
+                sh '''
+                      sudo docker system prune -a -f
+                      sudo docker-compose build
+                   '''
             }
         }
         // stage('Deploying') {
