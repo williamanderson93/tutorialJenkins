@@ -6,28 +6,14 @@ pipeline {
                     description: 'Read Jenkinsfile and exit.')
 		    }
     stages {
-        // stage('Pre') { hello from Jenkins!
-        //     steps {
-        //         sh 'ansible-playbook -v -i /home/jenkins/.jenkins/workspace/FlaskApp/inventory.yaml /home/jenkins/.jenkins/workspace/FlaskApp/playbook.yaml'
-        //     }
-        // }
-        // stage('Test') { 
-        //     steps {
-        //         sh 'sudo pytest /home/jenkins/.jenkins/workspace/FlaskApp/'
-        //     }
-        // }
         stage('Clean Up') {
             steps {
-                sh '''
-                      sudo docker system prune -a -f
-                   '''
+                sh 'sudo docker system prune -a -f'
             }
             }
-        stage('Integration Test') {
+        stage('Build') {
             steps {
-                sh '''
-                      python3 -m pytest ./main/tests/test_unit.py
-                   '''
+                sh 'sudo docker-compose build'
             }
         }
         stage('Unit Tests') {
@@ -38,9 +24,9 @@ pipeline {
                    '''
             }
         }
-        stage('Build') {
+        stage('Integration Test') {
             steps {
-                sh 'sudo docker-compose build'
+                sh 'python3 -m pytest ./main/tests/test_unit.py'
             }
         }
         // stage('Deploying') {
