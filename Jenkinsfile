@@ -16,7 +16,6 @@ pipeline {
         //         sh 'sudo pytest /home/jenkins/.jenkins/workspace/FlaskApp/'
         //     }
         // }
-        stage
         stage('Building') {
             steps {
                 sh 'sudo docker-compose build'
