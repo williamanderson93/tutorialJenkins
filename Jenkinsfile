@@ -11,9 +11,17 @@ pipeline {
                 sh 'sudo docker system prune -a -f'
             }
         }
-        stage('test') {
+        stage('Unit Tests') {
             steps {
-                sh 'python3 -m pytest ./prime/tests/test_unit.py'
+                sh '''
+                      python3 -m pytest ./converter/tests/test_unit.py
+                      python3 -m pytest ./prime/tests/test_unit.py
+                   '''
+            }
+        }
+        stage('Integration Test') {
+            steps {
+                sh 'python3 -m pytest ./main/tests/test_unit.py'
             }
         }
         stage('build') {
