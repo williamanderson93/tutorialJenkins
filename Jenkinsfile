@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''
                 #!bin/bash
-                sudo ssh -i /home/jenkins/.ssh/lamptestbox -o StrictHostKeyChecking=no ubuntu@18.133.242.2 << EOF
+                sudo ssh -i /home/jenkins/lamptestbox -o StrictHostKeyChecking=no ubuntu@18.133.242.2 << EOF
                 rm -rf tutorialJenkins
                 git clone https://github.com/williamanderson93/tutorialJenkins.git
                 cd tutorialJenkins
