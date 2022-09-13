@@ -11,6 +11,11 @@ pipeline {
                 sh 'sudo docker system prune -a -f'
             }
         }
+        stage('build') {
+            steps {
+                sh 'sudo docker-compose build'
+            }
+        }    
         stage('Unit Tests') {
             steps {
                 sh '''
@@ -22,11 +27,6 @@ pipeline {
         stage('Integration Test') {
             steps {
                 sh 'python3 -m pytest ./main/tests/test_unit.py'
-            }
-        }
-        stage('build') {
-            steps {
-                sh 'sudo docker-compose build'
             }
         }
     }
